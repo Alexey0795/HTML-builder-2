@@ -1,3 +1,7 @@
+# for tasks
+*files-copy
+*project-dist
+
 # Logs
 logs
 *.log
