@@ -1,8 +1,6 @@
-const { mkdir } = require('fs');
 const { join } = require('path');
-const { start } = require('repl');
-const { copyDir, resetFolder, mergeStyles } = require('..\\lib\\common.js');
 const { createReadStream, createWriteStream } = require('fs');
+const { copyDir, resetFolder, mergeStyles } = require('..\\lib\\common.js');
 
 async function main() {
   const flag = process.argv[2];
@@ -18,7 +16,13 @@ async function main() {
     const sourceStylesFolderPath = join(__dirname, 'styles');
     const outputFilePath = join(__dirname, 'project-dist', 'style.css');
     console.log('Styles start merging.');
-    mergeStyles(sourceStylesFolderPath, outputFilePath);
+    mergeStyles(sourceStylesFolderPath, outputFilePath,
+      {
+        sortingArr:
+          ["header.css",
+            "main.css",
+            "footer.css"]
+      });
 
     const sourceAssetsFolderPath = join(__dirname, 'assets');
     const outputAssetsFolderPath = join(__dirname, 'project-dist', 'assets');
@@ -82,7 +86,7 @@ async function main() {
       useChunk(chunk);
     }
 
-    writeableStream.on('finish', () => console.log(`html been injected}`));
+    writeableStream.on('finish', () => console.log(`html been injected.`));
 
   } catch (err) {
     console.error(err);
